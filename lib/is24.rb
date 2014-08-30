@@ -125,6 +125,27 @@ module Is24
       response
     end
 
+    # this is to search specific region
+    def search_regions(region)
+      options = {
+        :q => region,
+      }
+
+      regions = []
+
+      puts "Search with options " + options.inspect
+
+      response = connection.get("region", options )
+      puts "responce is "  + response.inspect
+
+      if response.status == 200
+        regions.push response.body["region.regions"][0]['region'][0]
+      end
+
+      regions
+    end
+
+    # this is to search all immobility
     def search(options)
       defaults = {
         :channel => "hp",
