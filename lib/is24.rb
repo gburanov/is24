@@ -148,10 +148,8 @@ module Is24
     # this is to search all immobility
     def search(options)
       defaults = {
-        :channel => "hp",
         :realestatetype => ["housebuy"],
         :geocodes => 1276,
-        :username => "me"
       }
       options = defaults.merge(options)
       types = options[:realestatetype]
@@ -165,15 +163,19 @@ module Is24
 
       types.each do |type|
         options[:realestatetype] = type
+        #puts "Search options are " + options.inspect
+
         response = connection.get("search/region", options )
         if response.status == 200
           if response.body["resultlist.resultlist"].resultlistEntries[0]['@numberOfHits'] == "0"
             response.body["resultlist.resultlist"].resultlistEntries[0].resultlistEntries = []
           end
-          objects.push response.body["resultlist.resultlist"].resultlistEntries[0]
+          arr = response.body["resultlist.resultlist"]['resultlistEntries'][0]['resultlistEntry']
+          objects = objects.concat(arr)
         end
       end
 
+      #puts "Object size " + objects.length.to_s
       objects
     end
 
