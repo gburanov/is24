@@ -145,6 +145,40 @@ module Is24
       regions
     end
 
+    def radius_search(options)
+      defaults = {
+          :realestatetype => ["housebuy"],
+      }
+      options = defaults.merge(options)
+      types = options[:realestatetype]
+
+      case types
+        when String
+          types = [types]
+      end
+
+      objects = []
+
+      types.each do |type|
+        options[:realestatetype] = type
+        #puts "Search options are " + options.inspect
+
+        url = connection.build_url("search/radius", options)
+        puts "Calling URL " + url.to_s
+
+        response = connection.get("search/radius", options )
+        if response.status == 200
+          if response.body["resultlist.resultlist"].resultlistEntries[0]['@numberOfHits'] == "0"
+            response.body["resultlist.resultlist"].resultlistEntries[0].resultlistEntries = []
+          end
+          arr = response.body["resultlist.resultlist"]['resultlistEntries'][0]['resultlistEntry']
+          objects = objects.concat(arr)
+        end
+      end
+      #puts "Object size " + objects.length.to_s
+      objects
+    end
+
     # this is to search all immobility
     def search(options)
       defaults = {
@@ -165,6 +199,9 @@ module Is24
         options[:realestatetype] = type
         #puts "Search options are " + options.inspect
 
+        url = connection.build_url("search/region", options)
+        puts "Calling URL " + url.to_s
+
         response = connection.get("search/region", options )
         if response.status == 200
           if response.body["resultlist.resultlist"].resultlistEntries[0]['@numberOfHits'] == "0"
@@ -180,6 +217,9 @@ module Is24
     end
 
     def expose(id)
+      url = connection.build_url("expose/#{id}")
+      puts "Calling URL " + url.to_s
+
       response = connection.get("expose/#{id}")
       response.body["expose.expose"]
     end
