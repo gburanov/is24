@@ -18,6 +18,8 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.5.0)
     multipart-post (1.1.5)
+    rails_config (0.4.2)
+      activesupport (>= 3.0)
     rdoc (3.12.1)
       json (~> 1.4)
     shoulda (3.3.2)
@@ -37,5 +39,6 @@ DEPENDENCIES
   faraday_middleware
   hashie
   multi_json
+  rails_config
   rdoc (~> 3.12)
   shoulda

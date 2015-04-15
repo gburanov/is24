@@ -218,7 +218,6 @@ module Is24
 
     def expose(id)
       url = connection.build_url("expose/#{id}")
-      puts "Calling URL " + url.to_s
 
       response = connection.get("expose/#{id}")
       response.body["expose.expose"]

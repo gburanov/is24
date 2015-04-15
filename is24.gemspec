@@ -6,9 +6,9 @@ require "is24/version"
 Gem::Specification.new do |s|
   s.name        = "is24"
   s.version     = Is24::VERSION
-  s.authors     = ["Bernd Suenkel"]
-  s.email       = ["bernd@bnerd.de"]
-  s.homepage    = "http://github.com/bnerd/is24"
+  s.authors     = ["Bernd Suenkel", "Georgy Buranov"]
+  s.email       = ["gburanov@gburanov.com"]
+  s.homepage    = "http://github.com/gburanov/is24"
   s.summary     = %q{Ruby API Client for Immobilienscout24.}
   s.description = %q{Simple Ruby API Client for Immobilienscout24.}
 
