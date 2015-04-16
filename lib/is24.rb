@@ -1,6 +1,8 @@
 # encoding: UTF-8
 
 require 'is24/logger'
+require 'is24/search'
+
 require 'faraday'
 require 'faraday_middleware'
 require 'faraday_middleware/response/mashify'
@@ -145,40 +147,6 @@ module Is24
       regions
     end
 
-    def radius_search(options)
-      defaults = {
-          :realestatetype => ["housebuy"],
-      }
-      options = defaults.merge(options)
-      types = options[:realestatetype]
-
-      case types
-        when String
-          types = [types]
-      end
-
-      objects = []
-
-      types.each do |type|
-        options[:realestatetype] = type
-        #puts "Search options are " + options.inspect
-
-        url = connection.build_url("search/radius", options)
-        puts "Calling URL " + url.to_s
-
-        response = connection.get("search/radius", options )
-        if response.status == 200
-          if response.body["resultlist.resultlist"].resultlistEntries[0]['@numberOfHits'] == "0"
-            response.body["resultlist.resultlist"].resultlistEntries[0].resultlistEntries = []
-          end
-          arr = response.body["resultlist.resultlist"]['resultlistEntries'][0]['resultlistEntry']
-          objects = objects.concat(arr)
-        end
-      end
-      #puts "Object size " + objects.length.to_s
-      objects
-    end
-
     # this is to search all immobility
     def search(options)
       defaults = {
@@ -231,6 +199,10 @@ module Is24
     def short_list
       response = connection.get("searcher/me/shortlist/0/entry")
       response.body["shortlist.shortlistEntries"].first["shortlistEntry"]
+    end
+
+    def search
+      Is24::Search.new(connection)
     end
 
     protected
