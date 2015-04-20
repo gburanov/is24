@@ -27,6 +27,7 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
+    simple_oauth (0.2.0)
 
 PLATFORMS
   ruby
@@ -39,3 +40,4 @@ DEPENDENCIES
   multi_json
   rdoc (~> 3.12)
   shoulda
+  simple_oauth

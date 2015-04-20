@@ -4,6 +4,7 @@ gem 'multi_json'
 gem 'hashie'
 gem 'faraday'
 gem 'faraday_middleware'
+gem 'simple_oauth'
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

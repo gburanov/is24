@@ -2,8 +2,9 @@ class Location
   attr_accessor :latitude
   attr_accessor :longitude
 
-  def find api, radius
-
+  def initialize(lat, long)
+    @latitude = lat
+    @longitude = long
   end
 
 end
